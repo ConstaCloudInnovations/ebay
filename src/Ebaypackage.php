@@ -6,9 +6,7 @@ class Ebay
 {
 
    
-
-
-    public function getEbayOrders($token, $id = NULL, $PageNumber = 1, $OrdersPerPage = 100)
+  public function getEbayOrders($token, $id = NULL, $PageNumber = 1, $OrdersPerPage = 100)
     {
         $headers = array();
         $headers[] = "X-EBAY-API-SITEID:0";
