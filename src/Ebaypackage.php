@@ -31,7 +31,7 @@ class EbayAPI
             <GetOrdersRequest xmlns="urn:ebay:apis:eBLBaseComponents">    
             <ErrorLanguage>en_US</ErrorLanguage>
             <WarningLevel>High</WarningLevel>
-             <CreateTimeFrom>'.date("Y-m-d\TH:i:s", strtotime("-1 months")).'</CreateTimeFrom>
+             <CreateTimeFrom>'.date("Y-m-d\TH:i:s", strtotime("-10 years")).'</CreateTimeFrom>
              <CreateTimeTo>'.date("Y-m-d\TH:i:s").'</CreateTimeTo>
             <Pagination>
             <EntriesPerPage>'.$OrdersPerPage.'</EntriesPerPage>
