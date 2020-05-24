@@ -2,7 +2,7 @@
 
 namespace Ebaypackage;
 
-class Ebay
+class EbayAPI
 {
 
    
@@ -40,248 +40,248 @@ class Ebay
             </GetOrdersRequest>';
         }
         
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.ebay.com/ws/api.dll");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        $response = curl_exec($ch);
-        curl_close($ch);
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, "https://api.sandbox.ebay.com/ws/api.dll");
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        cURL_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $response = cURL_exec($ch);
+        cURL_close($ch);
         
         return json_encode(simplexml_load_string($response));
     }
 
 
-    public function getEbayOrderId($token,$api_url,$order_id)
+    public function getEbayOrderId($token,$api_URL,$order_id)
     {
         if(!$token){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild Token"
+                    "message": "Please enter valid Token"
             }';
             return $error_response;
-        }else if(!$api_url){
+        }else if(!$api_URL){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Url"
+                "message": "Please enter valid URL"
             }';
             return $error_response;
         }elseif(!$order_id){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Order id"
+                "message": "Please enter valid Order id"
             }';
             return $error_response;
             
             }else{
             
-                $url = "".$api_url."/sell/fulfillment/v1/order/".$order_id;
+                $URL = "".$api_URL."/sell/fulfillment/v1/order/".$order_id;
             
             
            
         }
         
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, $URL);
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         $headers = array();
         $headers[] = "Authorization: Bearer .'$token'.";
         $headers[] = "Accept: application/json";
         $headers[] = "Content-Type: application/json";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = cURL_exec($ch);
+        if (cURL_errno($ch)) {
+            echo 'Error:' . cURL_error($ch);
         }
-        curl_close ($ch);
+        cURL_close ($ch);
         return $result;
     }
 
-    public function getEbayInventoryItems($token,$api_url,$limit,$offset)
+    public function getEbayInventoryItems($token,$api_URL,$limit,$offset)
     {
         if(!$token){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild Token"
+                    "message": "Please enter valid Token"
             }';
             return $error_response;
-        }else if(!$api_url){
+        }else if(!$api_URL){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Url"
+                "message": "Please enter valid URL"
             }';
             return $error_response;
         }else{
             
-                $url = "".$api_url."/sell/inventory/v1/inventory_item?";
+                $URL = "".$api_URL."/sell/inventory/v1/inventory_item?";
             if($limit){
-                $url = "$url"."&limit="."$limit";
+                $URL = "$URL"."&limit="."$limit";
                 if($offset){
-                    $url =  "$url"."&offset="."$offset";
+                    $URL =  "$URL"."&offset="."$offset";
                 }
             }
         }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, $URL);
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         $headers = array();
         $headers[] = "Authorization: Bearer .'$token'.";
         $headers[] = "Accept: application/json";
         $headers[] = "Content-Type: application/json";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = cURL_exec($ch);
+        if (cURL_errno($ch)) {
+            echo 'Error:' . cURL_error($ch);
         }
-        curl_close ($ch);
+        cURL_close ($ch);
         return $result;
     }
 
-    public function getEbayInventoryItem($token,$api_url,$sku)
+    public function getEbayInventoryItem($token,$api_URL,$sku)
     {
         if(!$token){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild Token"
+                    "message": "Please enter valid Token"
             }';
             return $error_response;
-        }else if(!$api_url){
+        }else if(!$api_URL){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Url"
+                "message": "Please enter valid URL"
             }';
             return $error_response;
         }elseif(!$sku){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild sku"
+                "message": "Please enter valid sku"
             }';
             return $error_response;
         }else{
             if($environment != 'sandbox'){
                 $environment='';
             }
-                $url = "".$api_url."/sell/inventory/v1/inventory_item/".$sku;
+                $URL = "".$api_URL."/sell/inventory/v1/inventory_item/".$sku;
         }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, $URL);
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         $headers = array();
         $headers[] = "Authorization: Bearer .'$token'.";
         $headers[] = "Accept: application/json";
         $headers[] = "Content-Type: application/json";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = cURL_exec($ch);
+        if (cURL_errno($ch)) {
+            echo 'Error:' . cURL_error($ch);
         }
-        curl_close ($ch);
+        cURL_close ($ch);
         return $result;
     }
 
 
 
-    public function getEbayOffer($token,$api_url,$sku)
+    public function getEbayOffer($token,$api_URL,$sku)
     {
         if(!$token){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild Token"
+                    "message": "Please enter valid Token"
             }';
             return $error_response;
-        }else if(!$api_url){
+        }else if(!$api_URL){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Url"
+                "message": "Please enter valid URL"
             }';
             return $error_response;
         }elseif(!$sku){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild sku"
+                "message": "Please enter valid sku"
             }';
             return $error_response;
         }else{
            
-                $url = "".$api_url."/sell/inventory/v1/offer?sku=".$sku;
+                $URL = "".$api_URL."/sell/inventory/v1/offer?sku=".$sku;
         }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, $URL);
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         $headers = array();
         $headers[] = "Authorization: Bearer .'$token'.";
         $headers[] = "Accept: application/json";
         $headers[] = 'Content-Language: en-US';
         $headers[] = "Content-Type: application/json";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = cURL_exec($ch);
+        if (cURL_errno($ch)) {
+            echo 'Error:' . cURL_error($ch);
         }
-        curl_close ($ch);
+        cURL_close ($ch);
         return $result;
     }
 
 
-    public function getCategory($token,$api_url)
+    public function getCategory($token,$api_URL)
     {
         if(!$token){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild Token"
+                    "message": "Please enter valid Token"
             }';
             return $error_response;
-        }else if(!$api_url){
+        }else if(!$api_URL){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Url"
+                "message": "Please enter valid URL"
             }';
             return $error_response;
         }else{
            
-                $url = "".$api_url."/commerce/taxonomy/v1_beta/category_tree/0";
+                $URL = "".$api_URL."/commerce/taxonomy/v1_beta/category_tree/0";
         }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, $URL);
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         $headers = array();
         $headers[] = "Authorization: Bearer .'$token'.";
         $headers[] = "Accept: application/json";
         $headers[] = 'Content-Language: en-US';
         $headers[] = "Content-Type: application/json";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = cURL_exec($ch);
+        if (cURL_errno($ch)) {
+            echo 'Error:' . cURL_error($ch);
         }
-        curl_close ($ch);
+        cURL_close ($ch);
         return $result;
     }
 
-    public function createOrUpdateInventoryItem($token,$api_url,$sku,$requestProductData)
+    public function createOrUpdateInventoryItem($token,$api_URL,$sku,$requestProductData)
     {
         if(!$token){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild Token"
+                    "message": "Please enter valid Token"
             }';
             return $error_response;
         }else if(!$sku){
             $error_response = '{
                     "category": "REQUEST",
-                    "message": "Please enter vaild SKU"
+                    "message": "Please enter valid SKU"
             }';
             return $error_response;
-        }else if(!$api_url){
+        }else if(!$api_URL){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Url"
+                "message": "Please enter valid URL"
             }';
             return $error_response;
         }else if(!$requestProductData){
@@ -292,25 +292,24 @@ class Ebay
             return $error_response;
         }else{
             
-            $url = "".$api_url."/sell/inventory/v1/inventory_item/".$sku;
+            $URL = "".$api_URL."/sell/inventory/v1/inventory_item/".$sku;
         }
-        // $url = "https://api.sandbox.ebay.com/sell/inventory/v1/inventory_item/".$sku;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        $ch = cURL_init();
+        cURL_setopt($ch, CURLOPT_URL, $URL);
+        cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         $headers = array();
         $headers[] = "Authorization: Bearer .'$token'.";
         $headers[] = "Content-Type: application/json";
         $headers[] = "Content-Language: en-US";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$requestProductData);
-        $result = curl_exec($ch);
-        $response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        cURL_setopt($ch, CURLOPT_POSTFIELDS,$requestProductData);
+        $result = cURL_exec($ch);
+        $response_code = cURL_getinfo($ch, CURLINFO_HTTP_CODE);
+        if (cURL_errno($ch)) {
+            echo 'Error:' . cURL_error($ch);
         }
-        curl_close ($ch);
+        cURL_close ($ch);
         if($response_code == 204){
             $sucess_response = '{
                 "code":204

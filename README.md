@@ -6,7 +6,7 @@ $ composer require constacloud/ebay-sdk
 
 ### Add below line to your controller
 ```php
-use Ebaypackage\Ebay;
+use Ebaypackage\EbayAPI;
 ```
 
 ### Get Ebay Orders
@@ -17,7 +17,7 @@ public function getOrders(){
     $creationdate = ''; //creationdate = %5B{yyyy-mm-dd}T08:25:43.511Z..%5D
     $limit = '';
     $offset = '';
-    $ebay = new Ebay();
+    $ebay = new EbayAPI();
     return $ebay->getEbayOrders($token,$environment,$creationdate,$limit,$offset);
 }
 ```
@@ -28,7 +28,7 @@ public function getInventoryItems(){
     $environment = 'sandbox'; //or production
     $limit = '';
     $offset = '';
-    $ebay = new Ebay();
+    $ebay = new EbayAPI();
     return $ebay->getEbayInventoryItems($token,$environment,$limit,$offset);
 }
 ```
@@ -38,7 +38,7 @@ public function getInventoryItems(){
 public function getInventoryItem(){
     $token = 'your_token';
     $environment = 'sandbox'; //or production
-    $ebay = new Ebay();
+    $ebay = new EbayAPI();
     return $ebay->getEbayInventoryItem($token,$environment,$sku);
 }
 ```
@@ -103,7 +103,7 @@ public function createUpdateInventory(){
         $sku = 'new-testing-sku';
         $environment = 'sandbox'; //or production
         $token = 'your_token';
-        $ebay = new Ebay();
+        $ebay = new EbayAPI();
         return $ebay->createOrUpdateInventoryItem($token,$environment,$sku,$requestProductData);
     }
 ```
