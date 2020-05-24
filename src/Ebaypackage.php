@@ -53,7 +53,7 @@ class Ebay
     }
 
 
-    public function getEbayOrderId($token,$environment,$order_id)
+    public function getEbayOrderId($token,$api_url,$order_id)
     {
         if(!$token){
             $error_response = '{
@@ -61,10 +61,10 @@ class Ebay
                     "message": "Please enter vaild Token"
             }';
             return $error_response;
-        }else if(!$environment){
+        }else if(!$api_url){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Environment"
+                "message": "Please enter vaild Url"
             }';
             return $error_response;
         }elseif(!$order_id){
@@ -75,11 +75,8 @@ class Ebay
             return $error_response;
             
             }else{
-            if($environment != 'sandbox'){
-                $environment='';
-            }
             
-                $url = "https://api."."$environment".".ebay.com/sell/fulfillment/v1/order/".$order_id;
+                $url = "".$api_url."/sell/fulfillment/v1/order/".$order_id;
             
             
            
@@ -102,7 +99,7 @@ class Ebay
         return $result;
     }
 
-    public function getEbayInventoryItems($token,$environment,$limit,$offset)
+    public function getEbayInventoryItems($token,$api_url,$limit,$offset)
     {
         if(!$token){
             $error_response = '{
@@ -110,17 +107,15 @@ class Ebay
                     "message": "Please enter vaild Token"
             }';
             return $error_response;
-        }else if(!$environment){
+        }else if(!$api_url){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Environment"
+                "message": "Please enter vaild Url"
             }';
             return $error_response;
         }else{
-            if($environment != 'sandbox'){
-                $environment='';
-            }
-                $url = "https://api."."$environment".".ebay.com/sell/inventory/v1/inventory_item?";
+            
+                $url = "".$api_url."/sell/inventory/v1/inventory_item?";
             if($limit){
                 $url = "$url"."&limit="."$limit";
                 if($offset){
@@ -145,7 +140,7 @@ class Ebay
         return $result;
     }
 
-    public function getEbayInventoryItem($token,$environment,$sku)
+    public function getEbayInventoryItem($token,$api_url,$sku)
     {
         if(!$token){
             $error_response = '{
@@ -153,10 +148,10 @@ class Ebay
                     "message": "Please enter vaild Token"
             }';
             return $error_response;
-        }else if(!$environment){
+        }else if(!$api_url){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Environment"
+                "message": "Please enter vaild Url"
             }';
             return $error_response;
         }elseif(!$sku){
@@ -169,7 +164,7 @@ class Ebay
             if($environment != 'sandbox'){
                 $environment='';
             }
-                $url = "https://api."."$environment".".ebay.com/sell/inventory/v1/inventory_item/".$sku;
+                $url = "".$api_url."/sell/inventory/v1/inventory_item/".$sku;
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -190,7 +185,7 @@ class Ebay
 
 
 
-    public function getEbayOffer($token,$environment,$sku)
+    public function getEbayOffer($token,$api_url,$sku)
     {
         if(!$token){
             $error_response = '{
@@ -198,10 +193,10 @@ class Ebay
                     "message": "Please enter vaild Token"
             }';
             return $error_response;
-        }else if(!$environment){
+        }else if(!$api_url){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Environment"
+                "message": "Please enter vaild Url"
             }';
             return $error_response;
         }elseif(!$sku){
@@ -211,10 +206,8 @@ class Ebay
             }';
             return $error_response;
         }else{
-            if($environment != 'sandbox'){
-                $environment='';
-            }
-                $url = "https://api."."$environment".".ebay.com/sell/inventory/v1/offer?sku=".$sku;
+           
+                $url = "".$api_url."/sell/inventory/v1/offer?sku=".$sku;
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -235,7 +228,7 @@ class Ebay
     }
 
 
-    public function getCategory($token,$environment)
+    public function getCategory($token,$api_url)
     {
         if(!$token){
             $error_response = '{
@@ -243,17 +236,15 @@ class Ebay
                     "message": "Please enter vaild Token"
             }';
             return $error_response;
-        }else if(!$environment){
+        }else if(!$api_url){
             $error_response = '{
                 "category": "REQUEST",
-                "message": "Please enter vaild Environment"
+                "message": "Please enter vaild Url"
             }';
             return $error_response;
         }else{
-            if($environment != 'sandbox'){
-                $environment='';
-            }
-                $url = "https://api."."$environment".".ebay.com/commerce/taxonomy/v1_beta/category_tree/0";
+           
+                $url = "".$api_url."/commerce/taxonomy/v1_beta/category_tree/0";
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -273,7 +264,7 @@ class Ebay
         return $result;
     }
 
-    public function createOrUpdateInventoryItem($token,$environment,$sku,$requestProductData)
+    public function createOrUpdateInventoryItem($token,$api_url,$sku,$requestProductData)
     {
         if(!$token){
             $error_response = '{
@@ -287,6 +278,12 @@ class Ebay
                     "message": "Please enter vaild SKU"
             }';
             return $error_response;
+        }else if(!$api_url){
+            $error_response = '{
+                "category": "REQUEST",
+                "message": "Please enter vaild Url"
+            }';
+            return $error_response;
         }else if(!$requestProductData){
             $error_response = '{
                 "category": "REQUEST",
@@ -294,10 +291,8 @@ class Ebay
             }';
             return $error_response;
         }else{
-            if($environment != 'sandbox'){
-                $environment='';
-            }
-            $url = "https://api."."$environment".".ebay.com/sell/inventory/v1/inventory_item/".$sku;
+            
+            $url = "".$api_url."/sell/inventory/v1/inventory_item/".$sku;
         }
         // $url = "https://api.sandbox.ebay.com/sell/inventory/v1/inventory_item/".$sku;
         $ch = curl_init();
