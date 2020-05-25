@@ -321,5 +321,54 @@ class EbayAPI
         }
     }
 
+    public function deleteEbayOffer($token,$api_URL,$offer_id){
+        if(!$token){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid Token"
+            }';
+            return $error_response;
+        }else if(!$api_URL){
+            $error_response = '{
+                "category": "REQUEST",
+                "message": "Please enter valid URL"
+            }';
+            return $error_response;
+        }else if(!$offer_id){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid offer Id"
+            }';
+            return $error_response;
+        }else{
+            $URL = "".$api_URL."/sell/inventory/v1/offer/".$offer_id;
+            $ch = cURL_init();
+            cURL_setopt($ch, CURLOPT_URL, $URL);
+            cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            $headers = array();
+            $headers[] = "Authorization: Bearer .'$token'.";
+            $headers[] = "Content-Type: application/json";
+            $headers[] = "Content-Language: en-US";
+            cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $result = cURL_exec($ch);
+            $response_code = cURL_getinfo($ch, CURLINFO_HTTP_CODE);
+            if (cURL_errno($ch)) {
+                echo 'Error:' . cURL_error($ch);
+            }
+            cURL_close ($ch);
+            if($response_code == 204){
+                $sucess_response = '{
+                    "code":204
+                }';
+                return $sucess_response;
+            }else{
+                return $result;
+    
+            }
+            
+        }
+    }
+
 
 }

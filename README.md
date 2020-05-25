@@ -107,3 +107,14 @@ public function createUpdateInventory(){
         return $ebay->createOrUpdateInventoryItem($token,$environment,$sku,$requestProductData);
     }
 ```
+
+### Delete inventory
+```php
+public function getInventoryItem(){
+    $token = 'your_token';
+    $api_URL = "https://api.sandbox.ebay.com"; //or production
+    $offer_id = 'your_offer_id';
+    $ebay = new EbayAPI();
+    return $ebay->deleteEbayOffer($token,$api_URL,$offer_id);
+}
+```
