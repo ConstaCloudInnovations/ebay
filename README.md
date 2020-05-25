@@ -108,13 +108,25 @@ public function createUpdateInventory(){
     }
 ```
 
-### Delete inventory
+### Delete inventory offer
 ```php
-public function getInventoryItem(){
+public function deleteEbayOffer(){
     $token = 'your_token';
     $api_URL = "https://api.sandbox.ebay.com"; //or production
     $offer_id = 'your_offer_id';
     $ebay = new EbayAPI();
     return $ebay->deleteEbayOffer($token,$api_URL,$offer_id);
+}
+```
+
+### Get inventory item group
+```php
+public function getInventoryItemGroup(){
+    $token = 'your_token';
+    $api_URL = "https://api.sandbox.ebay.com"; //or production
+    $inventory_item_group_key = "juicy-apple-s";        
+    $offer_id = 'your_offer_id';
+    $ebay = new EbayAPI();
+    return $ebay->getInventoryItemGroup($token,$api_URL,$inventory_item_group_key);
 }
 ```
