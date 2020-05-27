@@ -161,9 +161,7 @@ class EbayAPI
             }';
             return $error_response;
         }else{
-            if($environment != 'sandbox'){
-                $environment='';
-            }
+           
                 $URL = "".$api_URL."/sell/inventory/v1/inventory_item/".$sku;
         }
         $ch = cURL_init();
