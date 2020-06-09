@@ -41,7 +41,7 @@ class EbayAPI
         }
         
         $ch = cURL_init();
-        cURL_setopt($ch, CURLOPT_URL, $api_URL);
+        cURL_setopt($ch, CURLOPT_URL, $api_URL."/ws/api.dll");
         cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -788,7 +788,7 @@ class EbayAPI
             <ViewAllNodes>true</ViewAllNodes>
         </GetCategoriesRequest>';
         $ch = cURL_init();
-        cURL_setopt($ch, CURLOPT_URL, $api_URL);
+        cURL_setopt($ch, CURLOPT_URL, $api_URL."/ws/api.dll");
         cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
