@@ -6,7 +6,7 @@ class EbayAPI
 {
 
    
-  public function getEbayOrders($token, $id = NULL, $PageNumber = 1, $OrdersPerPage = 100)
+  public function getEbayOrders($token, $api_URL, $id = NULL, $PageNumber = 1, $OrdersPerPage = 100)
     {
         $headers = array();
         $headers[] = "X-EBAY-API-SITEID:0";
@@ -41,7 +41,7 @@ class EbayAPI
         }
         
         $ch = cURL_init();
-        cURL_setopt($ch, CURLOPT_URL, "https://api.sandbox.ebay.com/ws/api.dll");
+        cURL_setopt($ch, CURLOPT_URL, $api_URL);
         cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -768,7 +768,7 @@ class EbayAPI
         }
     }
 
-    public function getEbayCategories($token)
+    public function getEbayCategories($token,$api_URL)
     {
         $headers = array();
         $headers[] = "X-EBAY-API-SITEID:0";
@@ -788,7 +788,7 @@ class EbayAPI
             <ViewAllNodes>true</ViewAllNodes>
         </GetCategoriesRequest>';
         $ch = cURL_init();
-        cURL_setopt($ch, CURLOPT_URL, "https://api.sandbox.ebay.com/ws/api.dll");
+        cURL_setopt($ch, CURLOPT_URL, $api_URL);
         cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
