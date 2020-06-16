@@ -907,4 +907,59 @@ class EbayAPI
     }
 
 
+    public function getEbayRetrunOrders($token,$api_url,$creation_date_range_from,$creation_date_range_to,$limit,$offset){
+        if(!$token){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid Token"
+            }';
+            return $error_response;
+        }else if(!$api_url){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid api url"
+            }';
+            return $error_response;
+        }else if(!$creation_date_range_from){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid creation date"
+            }';
+            return $error_response;
+        }else if(!$creation_date_range_to){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid From creation date"
+            }';
+            return $error_response;
+        }else if(!$limit){
+            $error_response = '{
+                    "category": "REQUEST",
+                    "message": "Please enter valid limit"
+            }';
+            return $error_response;
+        }else{
+            if(!$offset){
+                $offset = 0;
+             }
+            $URL = "".$api_url."/post-order/v2/return/search?creation_date_range_from="."$creation_date_range_from"."&creation_date_range_to="."$creation_date_range_to"."&limit="."$limit"."&offset="."$offset";
+            $ch = cURL_init();
+            cURL_setopt($ch, CURLOPT_URL, $URL);
+            cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            cURL_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            $headers = array();
+            $headers[] = "Authorization: TOKEN "."$token"."";
+            $headers[] = "Content-Type: application/json";
+            $headers[] = "Accept: application/json";
+            $headers[] = "X-EBAY-C-MARKETPLACE-ID: EBAY_US";
+            cURL_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $result = cURL_exec($ch);
+            $response_code = cURL_getinfo($ch, CURLINFO_HTTP_CODE);
+            if (cURL_errno($ch)) {
+                echo 'Error:' . cURL_error($ch);
+            }
+            cURL_close ($ch);
+            return $result;
+        }
+    }
 }

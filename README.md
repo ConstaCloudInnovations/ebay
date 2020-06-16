@@ -342,3 +342,17 @@ public function publishInventoryItemGroup(){
     return $ebay->publishOfferByInventoryItemGroup($token,$api_url,$requestData);
 }
 ```
+
+### get return orders
+```php
+public function getRetrunOrders(){
+    $token = "your_token";
+    $api_url = "https://api.ebay.com";
+    $creation_date_range_from ="2019-01-15T03:52:39.000Z";
+    $creation_date_range_to ="2020-06-16T03:52:39.000Z";
+    $limit =100;
+    $offset =0;
+    $ebay = new EbayAPI();
+    return $ebay->getEbayRetrunOrders($token,$api_url,$creation_date_range_from,$creation_date_range_to,$limit,$offset);
+}
+```
