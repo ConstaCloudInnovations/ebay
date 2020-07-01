@@ -356,3 +356,14 @@ public function getRetrunOrders(){
     return $ebay->getEbayRetrunOrders($token,$api_url,$creation_date_range_from,$creation_date_range_to,$limit,$offset);
 }
 ```
+
+### get orders by id
+```php
+public function getOrderById(){
+    $token = "your_token";
+    $api_URL = "https://api.ebay.com";
+    $order_id ="21-05086-71908";
+    $ebay = new EbayAPI();
+    return $ebay->getEbayOrderById($token,$api_URL,$order_id);
+}
+```
